@@ -27,6 +27,12 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
     });
   }
 
+  void clear() {
+    setState(() {
+      expression = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +76,7 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.grey),
                             ),
-                            onPressed: () {},
+                            onPressed: () => _updateExpression(value: "%"),
                             child: const Text(
                               "%",
                               style: TextStyle(color: Colors.black),
@@ -84,7 +90,7 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.grey),
                             ),
-                            onPressed: () {},
+                            onPressed: () => _updateExpression(value: "tan"),
                             child: const Text(
                               "tan",
                               style: TextStyle(color: Colors.black),
@@ -98,7 +104,7 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.grey),
                             ),
-                            onPressed: () {},
+                            onPressed: () => _updateExpression(value: "sin"),
                             child: const Text(
                               "sin",
                               style: TextStyle(color: Colors.black),
@@ -112,7 +118,7 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.grey),
                             ),
-                            onPressed: () {},
+                            onPressed: () => _updateExpression(value: "cos"),
                             child: const Text(
                               "cos",
                               style: TextStyle(color: Colors.black),
@@ -129,9 +135,9 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.black),
                             ),
-                            onPressed: () {},
+                            onPressed: clear,
                             child: const Text(
-                              "c",
+                              "Clear",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -143,9 +149,11 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.black),
                             ),
-                            onPressed: () {},
-                            child: const Text("(",
-                                style: TextStyle(color: Colors.white)),
+                            onPressed: () => _updateExpression(value: "("),
+                            child: const Text(
+                              "(",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                         SizedBox(width: 15.0),
@@ -154,124 +162,12 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.black)),
-                            onPressed: () {},
-                            child: Text(")",
-                                style: TextStyle(color: Colors.white)),
+                            onPressed: () => _updateExpression(value: ")"),
+                            child: Text(
+                              ")",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black)),
-                              onPressed: () {},
-                              child: Text(
-                                "/",
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "7",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "8",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "9",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black)),
-                              onPressed: () {},
-                              child: Text(
-                                "+",
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "4",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "5",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "6",
-                                style: TextStyle(color: Colors.black),
-                              )),
                         ),
                         SizedBox(
                           width: 15.0,
@@ -281,7 +177,129 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.black)),
-                            onPressed: () {},
+                            onPressed: () => _updateExpression(value: "/"),
+                            child: Text(
+                              "/",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 7),
+                            child: Text(
+                              "7",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 8),
+                            child: Text(
+                              "8",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 9),
+                            child: Text(
+                              "9",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black)),
+                            onPressed: () => _updateExpression(value: "+"),
+                            child: Text(
+                              "+",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 4),
+                            child: Text(
+                              "4",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 5),
+                            child: Text(
+                              "5",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 6),
+                            child: Text(
+                              "6",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black)),
+                            onPressed: () => _updateExpression(value: "-"),
                             child: Text(
                               "-",
                               style: TextStyle(color: Colors.white),
@@ -309,42 +327,45 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                         ),
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () => _updateExpression(value: 2),
-                              child: Text(
-                                "2",
-                                style: TextStyle(color: Colors.black),
-                              )),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 2),
+                            child: Text(
+                              "2",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,
                         ),
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "3",
-                                style: TextStyle(color: Colors.black),
-                              )),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 3),
+                            child: Text(
+                              "3",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,
                         ),
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black)),
-                              onPressed: () => _updateExpression(value: "*"),
-                              child: Text(
-                                "*",
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black)),
+                            onPressed: () => _updateExpression(value: "*"),
+                            child: Text(
+                              "*",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -352,14 +373,15 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "0",
-                                style: TextStyle(color: Colors.black),
-                              )),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 0),
+                            child: Text(
+                              "0",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,
@@ -369,30 +391,33 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                             children: [
                               Expanded(
                                 child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.grey)),
-                                    onPressed: () {},
-                                    child: Text(
-                                      ".",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.grey)),
+                                  onPressed: () =>
+                                      _updateExpression(value: "."),
+                                  child: Text(
+                                    ".",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 width: 15.0,
                               ),
                               Expanded(
                                 child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.red)),
-                                    onPressed: () {},
-                                    child: Text(
-                                      "=",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.red)),
+                                  onPressed: () {},
+                                  child: Text(
+                                    "=",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
