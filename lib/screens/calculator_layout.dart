@@ -1,36 +1,64 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class CalculatorLayout extends StatelessWidget {
-  const CalculatorLayout({Key? key}) : super(key: key);
+class CalculatorLayout extends StatefulWidget {
+  CalculatorLayout({Key? key}) : super(key: key);
+
+  @override
+  State<CalculatorLayout> createState() => _CalculatorLayoutState();
+}
+
+class _CalculatorLayoutState extends State<CalculatorLayout> {
+  String expression = "";
+  double result = 0;
+
+  void _updateExpression({required value}) {
+    String oldValue = expression;
+    print(oldValue);
+    String newValue;
+
+    if (value is int) {
+      newValue = "$oldValue$value";
+    } else {
+      newValue = "$oldValue $value";
+    }
+
+    setState(() {
+      expression = newValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Expanded(
-              child: Column(children: [
-                Text(
-                  "28 + 32",
-                  style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      expression,
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      "$result",
+                      style: const TextStyle(
+                        fontSize: 100.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: 40.0,
-                ),
-                Text("60",
-                    style:
-                        TextStyle(fontSize: 100.0, fontWeight: FontWeight.bold))
-              ]),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Container(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -38,55 +66,54 @@ class CalculatorLayout extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "%",
-                                style: TextStyle(color: Colors.black),
-                              )),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.grey),
+                            ),
+                            onPressed: () {},
+                            child: const Text(
+                              "%",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
+                        const SizedBox(width: 15.0),
                         Expanded(
                           child: ElevatedButton(
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.grey)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.grey),
+                            ),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "tan",
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
+                        const SizedBox(width: 15.0),
                         Expanded(
                           child: ElevatedButton(
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.grey)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.grey),
+                            ),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "sin",
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
+                        const SizedBox(width: 15.0),
                         Expanded(
                           child: ElevatedButton(
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.grey)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.grey),
+                            ),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "cos",
                               style: TextStyle(color: Colors.black),
                             ),
@@ -98,31 +125,30 @@ class CalculatorLayout extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black)),
-                              onPressed: () {},
-                              child: Text(
-                                "c",
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                            ),
+                            onPressed: () {},
+                            child: const Text(
+                              "c",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
+                        const SizedBox(width: 15.0),
                         Expanded(
                           child: ElevatedButton(
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.black)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                            ),
                             onPressed: () {},
-                            child: Text("(",
+                            child: const Text("(",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
+                        SizedBox(width: 15.0),
                         Expanded(
                           child: ElevatedButton(
                             style: ButtonStyle(
@@ -268,14 +294,15 @@ class CalculatorLayout extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
-                              child: Text(
-                                "1",
-                                style: TextStyle(color: Colors.black),
-                              )),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.grey)),
+                            onPressed: () => _updateExpression(value: 1),
+                            child: const Text(
+                              "1",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,
@@ -285,7 +312,7 @@ class CalculatorLayout extends StatelessWidget {
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all(Colors.grey)),
-                              onPressed: () {},
+                              onPressed: () => _updateExpression(value: 2),
                               child: Text(
                                 "2",
                                 style: TextStyle(color: Colors.black),
@@ -313,7 +340,7 @@ class CalculatorLayout extends StatelessWidget {
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all(Colors.black)),
-                              onPressed: () {},
+                              onPressed: () => _updateExpression(value: "*"),
                               child: Text(
                                 "*",
                                 style: TextStyle(color: Colors.white),
@@ -375,8 +402,8 @@ class CalculatorLayout extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );
