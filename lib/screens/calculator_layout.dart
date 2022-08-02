@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CalculatorLayout extends StatefulWidget {
-  CalculatorLayout({Key? key}) : super(key: key);
+  const CalculatorLayout({Key? key}) : super(key: key);
 
   @override
   State<CalculatorLayout> createState() => _CalculatorLayoutState();
@@ -11,15 +11,30 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
   String expression = "";
   double result = 0;
 
+  String operator = "";
+
   void _updateExpression({required value}) {
     String oldValue = expression;
-    print(oldValue);
     String newValue;
 
     if (value is int) {
       newValue = "$oldValue$value";
+      if (operator.isEmpty) {
+        result = value.toDouble();
+      } else {
+        if (operator == "+") {
+          result += value;
+        } else if (operator == "-") {
+          result -= value;
+        } else if (operator == "/") {
+          result = result / value;
+        } else if (operator == "*") {
+          result = result * value;
+        }
+      }
     } else {
       newValue = "$oldValue $value";
+      operator = value;
     }
 
     setState(() {
@@ -30,6 +45,8 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
   void clear() {
     setState(() {
       expression = "";
+      result = 0;
+      operator = "";
     });
   }
 
@@ -54,7 +71,7 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                       ),
                     ),
                     Text(
-                      "$result",
+                      result.toStringAsPrecision(3),
                       style: const TextStyle(
                         fontSize: 100.0,
                         fontWeight: FontWeight.bold,
@@ -136,9 +153,11 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
                                   MaterialStateProperty.all(Colors.black),
                             ),
                             onPressed: clear,
-                            child: const Text(
-                              "Clear",
-                              style: TextStyle(color: Colors.white),
+                            child: const FittedBox(
+                              child: Text(
+                                "Clear",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
