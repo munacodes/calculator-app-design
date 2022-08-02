@@ -30,6 +30,8 @@ class _CalculatorLayoutState extends State<CalculatorLayout> {
           result = result / value;
         } else if (operator == "*") {
           result = result * value;
+        } else if (operator == "tan") {
+          result = result * value;
         }
       }
     } else {
